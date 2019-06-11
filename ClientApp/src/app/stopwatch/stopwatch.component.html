@@ -1,0 +1,19 @@
+<nav class="controls">
+  <a class="button" (click)="running ? stop() : start()">
+    {{ running ? 'Stop&nbsp;' : 'Start' }}
+  </a>
+  <a class="button" (click)="lap();">
+    Lap
+    <i class="fa fa-"></i>
+  </a>
+  <a class="button" (click)="restart();">Restart</a>
+  <a class="button" (click)="clear();">Clear Laps</a>
+</nav>
+<div class="stopwatch">
+  {{stopwatch}}
+</div>
+<ul class="results">
+  <li *ngFor="let result of results; let i = index">
+    Lap {{i + 1}} - {{format(result)}}
+  </li>
+</ul>
