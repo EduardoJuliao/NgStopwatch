@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Ng2IziToastModule } from 'ng2-izitoast';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +14,9 @@ import { StopwatchComponent } from './stopwatch/stopwatch.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2IziToastModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

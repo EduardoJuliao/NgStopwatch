@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import Times from '../interfaces/times';
+import { Ng2IzitoastService } from 'ng2-izitoast';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-stopwatch',
@@ -16,7 +18,9 @@ export class StopwatchComponent implements OnInit {
   results: any[];
   stopwatch: string;
 
-  constructor() {
+  constructor(private iziToast: Ng2IzitoastService,
+    private http: HttpClient,
+    @Inject('BASE_URL') private baseUrl: string) {
     this.running = false;
     this.laps = [];
     this.results = [];
@@ -50,7 +54,15 @@ export class StopwatchComponent implements OnInit {
       return;
     }
     var newTime = this.iterationCopy(this.times);
-    this.results.push(newTime);
+
+    this.http.post(this.baseUrl + 'api/lap', newTime)
+      .subscribe(result => {
+        this.results.push(newTime);
+      }, error => {
+        this.iziToast.error({
+          title: "An error occured while trying to save "
+        })
+      });
   }
 
   stop() {
