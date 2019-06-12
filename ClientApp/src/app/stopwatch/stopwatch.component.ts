@@ -45,7 +45,9 @@ export class StopwatchComponent implements OnInit {
       seconds: 0,
       minutes: 0,
       hours: 0,
-      days: 0
+      days: 0,
+      recordDate: null,
+      sessionId: this.newSessionId()
     };
   }
 
@@ -56,6 +58,7 @@ export class StopwatchComponent implements OnInit {
 
     var newTime = this.iterationCopy(this.times) as Times;
     newTime.milliseconds = Math.floor(newTime.milliseconds);
+    newTime.recordDate = new Date();
 
     this.http.post(this.baseUrl + 'api/lap', newTime, {
       headers: { 'Content-Type': 'application/json' }
@@ -139,6 +142,10 @@ export class StopwatchComponent implements OnInit {
       }
     }
     return target;
+  }
+
+  private newSessionId(): string {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   }
 
 }

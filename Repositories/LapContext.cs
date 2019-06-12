@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AngularStopwatch.Repositories
 {
+
     public class LapContext : DbContext
     {
-        public DbSet<Lap> Time { get; set; }
+        public LapContext(DbContextOptions<LapContext> options)
+            : base(options)
+        {
+
+        }
+
+        public DbSet<Lap> Lap { get; set; }
     }
 }

@@ -34,11 +34,11 @@ namespace AngularStopwatch.Controllers
                     throw new ArgumentNullException();
 
                 var lap = mapper.Map<Lap>(model);
-
+                lap.UserId = "Generic User Id for the moment";
                 await this.repo.Save(lap);
                 return Ok();
             }
-            catch
+            catch (Exception ex)
             {
                 return StatusCode(500);
             }

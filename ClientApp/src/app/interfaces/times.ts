@@ -4,4 +4,6 @@ export default interface Times {
    minutes: number;
    hours: number;
    days: number;
+   recordDate: Date;
+   sessionId: string;
 }

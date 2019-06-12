@@ -19,12 +19,12 @@ namespace AngularStopwatch.Repositories
 
         public async Task<IEnumerable<Lap>> Get(string userId)
         {
-            return await context.Time.ToListAsync();
+            return await context.Lap.ToListAsync();
         }
 
         public async Task Save(Lap model)
         {
-            await context.Time.AddAsync(model);
+            await context.Lap.AddAsync(model);
             await context.SaveChangesAsync();
         }
     }
