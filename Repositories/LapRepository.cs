@@ -1,20 +1,31 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AngularStopwatch.Controllers.Entities;
 using AngularStopwatch.Interfaces.Repositories;
 using AngularStopwatch.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AngularStopwatch.Repositories
 {
     public class LapRepository : ILapRepository
     {
-        public async Task<IEnumerable<TimeModel>> Get(string userId)
+        private readonly LapContext context;
+
+        public LapRepository(LapContext context)
         {
-            return null;
+            this.context = context;
         }
 
-        public async Task Save(TimeModel model)
+        public async Task<IEnumerable<Lap>> Get(string userId)
         {
-            await Task.Run(() => { });
+            return await context.Time.ToListAsync();
+        }
+
+        public async Task Save(Lap model)
+        {
+            await context.Time.AddAsync(model);
+            await context.SaveChangesAsync();
         }
     }
 }

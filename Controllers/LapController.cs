@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AngularStopwatch.Controllers.Entities;
 using AngularStopwatch.Interfaces.Repositories;
 using AngularStopwatch.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AngularStopwatch.Controllers
@@ -10,10 +13,14 @@ namespace AngularStopwatch.Controllers
     [Route("api/[controller]")]
     public class LapController : Controller
     {
+        private readonly IMapper mapper;
         private readonly ILapRepository repo;
 
-        public LapController(ILapRepository repo)
+        public LapController(
+            IMapper mapper,
+            ILapRepository repo)
         {
+            this.mapper = mapper;
             this.repo = repo;
         }
 
@@ -26,7 +33,9 @@ namespace AngularStopwatch.Controllers
                 if (model == null)
                     throw new ArgumentNullException();
 
-                await this.repo.Save(model);
+                var lap = mapper.Map<Lap>(model);
+
+                await this.repo.Save(lap);
                 return Ok();
             }
             catch
@@ -38,7 +47,8 @@ namespace AngularStopwatch.Controllers
         [HttpGet()]
         public async Task<IEnumerable<TimeModel>> Get()
         {
-            return await this.repo.Get(string.Empty);
+            var times = await this.repo.Get(string.Empty);
+            return times.Select(mapper.Map<TimeModel>);
         }
     }
 }
