@@ -19,10 +19,13 @@ namespace AngularStopwatch.Controllers
 
 
         [HttpPost("")]
-        public async Task<ActionResult> Save([FromBody] TimeModel model)
+        public async Task<ActionResult> Save([FromBody]TimeModel model)
         {
             try
             {
+                if (model == null)
+                    throw new ArgumentNullException();
+
                 await this.repo.Save(model);
                 return Ok();
             }

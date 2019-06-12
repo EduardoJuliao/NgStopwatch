@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import Times from '../interfaces/times';
 import { Ng2IzitoastService } from 'ng2-izitoast';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-stopwatch',
@@ -53,9 +53,13 @@ export class StopwatchComponent implements OnInit {
     if (!this.running) {
       return;
     }
-    var newTime = this.iterationCopy(this.times);
 
-    this.http.post(this.baseUrl + 'api/lap', newTime)
+    var newTime = this.iterationCopy(this.times) as Times;
+    newTime.milliseconds = Math.floor(newTime.milliseconds);
+
+    this.http.post(this.baseUrl + 'api/lap', newTime, {
+      headers: { 'Content-Type': 'application/json' }
+    })
       .subscribe(result => {
         this.results.push(newTime);
       }, error => {
