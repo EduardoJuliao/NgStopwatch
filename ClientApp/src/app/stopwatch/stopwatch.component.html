@@ -1,19 +1,19 @@
 <nav class="controls">
-  <a class="button" (click)="running ? stop() : start()">
+  <button class="button" (click)="running ? stop() : start()">
     {{ running ? 'Stop&nbsp;' : 'Start' }}
-  </a>
-  <a class="button" (click)="lap();">
+  </button>
+  <button class="button" (click)="lap();">
     Lap
     <i class="fa fa-"></i>
-  </a>
-  <a class="button" (click)="restart();">Restart</a>
-  <a class="button" (click)="clear();">Clear Laps</a>
+  </button>
+  <button class="button" (click)="restart();">Restart</button>
+  <button class="button" (click)="clear();">Clear Laps</button>
 </nav>
 <div class="stopwatch">
   {{stopwatch}}
 </div>
-<ul class="results">
+<ul class="results" #scrollMe [scrollTop]="scrollMe.scrollHeight">
   <li *ngFor="let result of results; let i = index">
-    Lap {{i + 1}} - {{format(result)}}
+    Lap {{pad0(i + 1,2)}} - {{format(result)}}
   </li>
 </ul>

@@ -3,4 +3,5 @@ export default interface Times {
    seconds: number;
    minutes: number;
    hours: number;
+   days: number;
 }

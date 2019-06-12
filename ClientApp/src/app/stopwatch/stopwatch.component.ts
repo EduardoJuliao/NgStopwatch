@@ -40,7 +40,8 @@ export class StopwatchComponent implements OnInit {
       milliseconds: 0,
       seconds: 0,
       minutes: 0,
-      hours: 0
+      hours: 0,
+      days: 0
     };
   }
 
@@ -95,6 +96,11 @@ export class StopwatchComponent implements OnInit {
       this.times.hours += 1;
       this.times.minutes = 0;
     }
+
+    if (this.times.hours >= 24) {
+      this.times.days += 1;
+      this.times.hours = 0;
+    }
   }
 
   private print() {
@@ -102,7 +108,7 @@ export class StopwatchComponent implements OnInit {
   }
 
   private format(time: Times) {
-    return `${this.pad0(time.hours, 2)}:${this.pad0(time.minutes, 2)}:${this.pad0(time.seconds, 2)}:${this.pad0(Math.floor(time.milliseconds), 2)}`;
+    return `${this.pad0(time.days, 2)}:${this.pad0(time.hours, 2)}:${this.pad0(time.minutes, 2)}:${this.pad0(time.seconds, 2)}:${this.pad0(Math.floor(time.milliseconds), 2)}`;
   }
 
   private pad0(value: number, maxLength: number): string {
