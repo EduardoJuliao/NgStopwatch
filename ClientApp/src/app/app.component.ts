@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'stopwatch';
+  logged: boolean = false;
+
+  login() {
+    this.logged = true;
+  }
+
+  logoff() {
+    this.logged = false;
+  }
 }

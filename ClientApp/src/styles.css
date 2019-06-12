@@ -1,36 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+/* outsource */
 @import 'font-awesome/css/font-awesome.min.css';
-@import './assets/css/scrollbar.css';
 @import 'izitoast/dist/css/iziToast.min.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
-@font-face {
-  font-family: '8BitOperator';
-  src: url('./assets/fonts/8BitOperator/8bitOperatorPlus8-Regular.ttf')
-}
+/* application */
+@import './assets/css/scrollbar.css';
+@import './assets/css/bootstrap.min.css';
 
-* {
-  margin: 0;
-  padding: 0;
-}
 
 html {
   background: #333;
   color: #bbb;
   font-family: 'Consolas';
+  margin: 0;
+  padding: 0;
 }
 
-button {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0 !important;
-  font: inherit;
-  /*border is optional*/
-  border-bottom: 1px solid #444;
-  cursor: pointer;
-}
-
-button:hover {
-  border-bottom: 1px solid #fff;
-  color: #fff;
+html,
+body {
+  height: 100%;
 }

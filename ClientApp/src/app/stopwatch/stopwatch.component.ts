@@ -10,11 +10,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class StopwatchComponent implements OnInit {
 
+  /* Controllers */
   running: boolean;
+  saving: boolean;
+
+  /* Properties */
   laps: Times[];
   times: Times;
   time: number;
-
   results: any[];
   stopwatch: string;
 
@@ -24,6 +27,7 @@ export class StopwatchComponent implements OnInit {
     this.running = false;
     this.laps = [];
     this.results = [];
+    this.saving = false;
   }
 
   ngOnInit() {
@@ -52,24 +56,26 @@ export class StopwatchComponent implements OnInit {
   }
 
   lap() {
-    if (!this.running) {
+    if (!this.running || this.saving) {
       return;
     }
 
     var newTime = this.iterationCopy(this.times) as Times;
     newTime.milliseconds = Math.floor(newTime.milliseconds);
     newTime.recordDate = new Date();
+    this.saving = true;
 
     this.http.post(this.baseUrl + 'api/lap', newTime, {
       headers: { 'Content-Type': 'application/json' }
-    })
-      .subscribe(result => {
-        this.results.push(newTime);
-      }, error => {
-        this.iziToast.error({
-          title: "An error occured while trying to save "
-        })
+    }).subscribe(result => {
+      this.results.push(newTime);
+      this.saving = false;
+    }, error => {
+      this.iziToast.error({
+        title: "An error occured while trying to save "
       });
+      this.saving = false;
+    });
   }
 
   stop() {

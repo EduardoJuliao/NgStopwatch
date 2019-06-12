@@ -1,17 +1,24 @@
-<nav class="controls">
-  <button class="button" (click)="running ? stop() : start()">
-    {{ running ? 'Stop&nbsp;' : 'Start' }}
-  </button>
-  <button class="button" (click)="lap();">
-    Lap
-    <i class="fa fa-"></i>
-  </button>
-  <button class="button" (click)="restart();">Restart</button>
-  <button class="button" (click)="clear();">Clear Laps</button>
-</nav>
-<div class="stopwatch">
-  {{stopwatch}}
+<div class="flex-container">
+  <div class="stopwatch">
+    {{stopwatch}}
+    <div class="controls">
+      <a (click)="running ? stop() : start()">
+        <i *ngIf="!running" class="fa fa-2x fa-play"></i>
+        <i *ngIf="running" class=" fa fa-2x fa-stop"></i>
+      </a>
+      <a (click)="lap();">
+        <i class="fa fa-2x fa-refresh" [ngClass]="{'fa-spin': saving}"></i>
+      </a>
+      <a (click)="restart();">
+        <i class="fa fa-2x fa-caret-square-o-left"></i>
+      </a>
+      <a (click)="clear();">
+        <i class="fa fa-2x fa-trash"></i>
+      </a>
+    </div>
+  </div>
 </div>
+
 <ul class="results" #scrollMe [scrollTop]="scrollMe.scrollHeight">
   <li *ngFor="let result of results; let i = index">
     Lap {{pad0(i + 1,2)}} - {{format(result)}}
